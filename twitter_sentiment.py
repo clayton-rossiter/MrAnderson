@@ -68,7 +68,7 @@ class MrAnderson():
         data = [[tweet.user.screen_name, tweet.user.location, tweet.full_text] for tweet in self.tweets]
         self.df = pd.DataFrame(data=data, columns=['user','location','tweet'])
 
-    def export(self):
+    def export(self, filename=None):
         '''
         purpose:    export saved search results to a csv file in current directory
         inputs:     must have previously run search (error raise)
@@ -77,15 +77,16 @@ class MrAnderson():
         '''
         # check there are results, and check it's a dataframe
         try:
-            if not isinstance(self.tweets, pd.DataFrame):
+            if not isinstance(self.df, pd.DataFrame):
                 print("Ensure to search and save as a pandas dataframe!")
                 return
         except:
             print("Ensure you have searched for a tweet!")
             return
         # export to csv
-        filename = f'tweets_{self.hashtag}{self.search_after}.replace("-","_").csv'
-        self.tweets.to_csv(filename)
+        if filename != None:
+            filename = f'tweets_{self.hashtag}{self.search_after}.csv'
+        self.df.to_csv(filename)
 
 
 if __name__ == '__main__':
