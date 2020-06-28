@@ -6,7 +6,7 @@ import tweepy as tw
 import pandas as pd
 
 
-class MrAnderson():
+class MrAnderson:
     def __init__(self):
         self.connect()
 
@@ -19,6 +19,14 @@ class MrAnderson():
         auth = tw.OAuthHandler(secret_stuff.consumer_key, secret_stuff.consumer_secret)
         auth.set_access_token(secret_stuff.access_token_key, secret_stuff.access_token_secret)
         self.api = tw.API(auth, wait_on_rate_limit=True)
+    
+    def get_by_id(self, id):
+        '''
+        purpose:    used to get data from corpus training dataset
+        inputs:     tweet id
+        outputs:    tweet data
+        '''
+        self.tweet = self.api.get_status(id)
 
     def search(self, hashtag, search_after='2020-01-01', limit=None, as_dataframe=True,\
         filter_retweet=True):
@@ -63,7 +71,7 @@ class MrAnderson():
             lang="en",
             since=search_after,
             tweet_mode='extended'
-        ).items(10)
+        ).items(1000)
         # get necessary data into columns
         data = [[tweet.user.screen_name, tweet.user.location, tweet.full_text] for tweet in self.tweets]
         self.df = pd.DataFrame(data=data, columns=['user','location','tweet'])
@@ -84,12 +92,11 @@ class MrAnderson():
             print("Ensure you have searched for a tweet!")
             return
         # export to csv
-        if filename != None:
+        if filename == None:
             filename = f'tweets_{self.hashtag}{self.search_after}.csv'
         self.df.to_csv(filename)
 
 
 if __name__ == '__main__':
     neo = MrAnderson()
-    neo.search('blm','2020-06-01')
     
