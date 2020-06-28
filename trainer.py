@@ -82,7 +82,7 @@ class PreProcessTweets:
         pickle.dump(model, f)
         f.close()
 
-    def loadModel(self, filename='model'):
+    def loadModel(self, filename='model.pickle'):
         f = open(filename, 'rb')
         model = pickle.load(f)
         f.close()
@@ -90,8 +90,5 @@ class PreProcessTweets:
 
 if __name__ == '__main__':
     n = PreProcessTweets()
-    n.processTweets()
-    n.buildVocabulary()
-    model = n.naiveBayes()
-    n.saveModel(model)
+    model = n.loadModel()
     
