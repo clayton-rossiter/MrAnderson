@@ -31,7 +31,7 @@ class MrAnderson:
     def search(self, hashtag, search_after='2020-01-01', limit=None, as_dataframe=True,\
         filter_retweet=True):
         '''
-        purpose:    means to search twitter for hashtag tweets
+        purpose:    means to search twitter for hashtag and return tweets
         inputs:     hashtag:        hashtag string to search for
                     search_after:   default: 1st January 2020 ('2020-01-01')
                                     date in YYYY-MM-DD format
@@ -49,6 +49,8 @@ class MrAnderson:
             print("Ensure search term is a string!")
             return
         else:
+            # remove any spaces
+            hashtag = hashtag.replace(' ','')
             if hashtag[0] != '#':
                 self.hashtag = ''.join(('#',hashtag.strip()))
             else:
@@ -71,7 +73,7 @@ class MrAnderson:
             lang="en",
             since=search_after,
             tweet_mode='extended'
-        ).items(1000)
+        ).items(500)
         # get necessary data into columns
         data = [[tweet.user.screen_name, tweet.user.location, tweet.full_text] for tweet in self.tweets]
         self.df = pd.DataFrame(data=data, columns=['user','location','tweet'])
