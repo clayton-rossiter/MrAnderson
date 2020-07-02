@@ -137,7 +137,6 @@ def total_preprocess(tweet):
     newTweet = emoji_translation(newTweet)
     newTweet = emphasize_pos_and_neg_words(newTweet)
     newTweet = separate(newTweet)
-    newTweets.append(newTweet)
     return newTweet
 
 if __name__ == '__main__':

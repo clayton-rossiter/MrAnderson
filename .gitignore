@@ -10,3 +10,4 @@ words/positive.txt
 model_old.pickle
 __pycache__/twitter_scraper.cpython-38.pyc
 test.py
+__pycache__/preprocess.cpython-38.pyc
