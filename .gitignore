@@ -5,3 +5,8 @@ corpus.csv
 training.csv
 __pycache__/twitter_sentiment.cpython-38.pyc
 model.pickle
+words/negative.txt
+words/positive.txt
+model_old.pickle
+__pycache__/twitter_scraper.cpython-38.pyc
+test.py

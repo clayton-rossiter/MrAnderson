@@ -130,17 +130,15 @@ def separate(tweet):
     return [word for word in tweet if word not in STOPWORDS]
 
 
-def total_preprocess(tweets):
-    newTweets=[]
-    for tweet in tweets:
-        newTweet = tweet
-        newTweet = abbreviation_replacement(newTweet)
-        newTweet = neaten_tweet(newTweet)
-        newTweet = emoji_translation(newTweet)
-        newTweet = emphasize_pos_and_neg_words(newTweet)
-        newTweet = separate(newTweet)
-        newTweets.append(newTweet)
-    return newTweets
+def total_preprocess(tweet):
+    newTweet = tweet
+    newTweet = abbreviation_replacement(newTweet)
+    newTweet = neaten_tweet(newTweet)
+    newTweet = emoji_translation(newTweet)
+    newTweet = emphasize_pos_and_neg_words(newTweet)
+    newTweet = separate(newTweet)
+    newTweets.append(newTweet)
+    return newTweet
 
 if __name__ == '__main__':
     tweets = [
