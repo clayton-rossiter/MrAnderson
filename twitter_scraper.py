@@ -73,7 +73,7 @@ class MrAnderson:
             lang="en",
             since=search_after,
             tweet_mode='extended'
-        ).items(500)
+        ).items(100)
         # get necessary data into columns
         data = [[tweet.user.screen_name, tweet.user.location, tweet.full_text] for tweet in self.tweets]
         self.df = pd.DataFrame(data=data, columns=['user','location','tweet'])
@@ -99,6 +99,6 @@ class MrAnderson:
         self.df.to_csv(filename)
 
 
-if __name__ == '__main__':
-    neo = MrAnderson()
+# if __name__ == '__main__':
+#     neo = MrAnderson()
     
