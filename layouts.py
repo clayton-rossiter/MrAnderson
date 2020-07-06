@@ -2,48 +2,18 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-# layout1 = html.Div([
-#     html.H3('App 1'),
-#     dcc.Dropdown(
-#         id='app-1-dropdown',
-#         options=[
-#             {'label': 'App 1 - {}'.format(i), 'value': i} for i in [
-#                 'NYC', 'MTL', 'LA'
-#             ]
-#         ]
-#     ),
-#     html.Div(id='app-1-display-value'),
-#     dcc.Link('Go to App 2', href='/apps/app2')
-# ])
 
-# layout2 = html.Div([
-#     html.H3('App 2'),
-#     dcc.Dropdown(
-#         id='app-2-dropdown',
-#         options=[
-#             {'label': 'App 2 - {}'.format(i), 'value': i} for i in [
-#                 'NYC', 'MTL', 'LA'
-#             ]
-#         ]
-#     ),
-#     html.Div(id='app-2-display-value'),
-#     dcc.Link('Go to App 1', href='/apps/app1')
-# ])
+# global constants
+NAVBAR_LOGO = "https://images.plot.ly/logo/new-branding/plotly-logomark.png"
 
-PLOTLY_LOGO = "https://images.plot.ly/logo/new-branding/plotly-logomark.png"
-
-layout_dev = dbc.Container(
-    dbc.Alert("Hello Bootstrap!", color="alert alert-dismissible alert-success"),
-    className="p-5",
-)
-
+# navbar at top of the page
 navbar = dbc.Navbar(
     [
         html.A(
             # Use row and col to control vertical alignment of logo / brand
             dbc.Row(
                 [
-                    dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px")),
+                    dbc.Col(html.Img(src=NAVBAR_LOGO, height="30px")),
                     dbc.Col(dbc.NavbarBrand("Mr Anderson", className="ml-2 md-6")),
                 ],
                 align="center",
@@ -58,6 +28,7 @@ navbar = dbc.Navbar(
     dark=True,
 )
 
+# search bar for hashtags/account name
 search = dbc.FormGroup(
     [
         dbc.Label("Sentiment Search"),
@@ -66,10 +37,21 @@ search = dbc.FormGroup(
     ]
 )
 
+# sentiment graph
+graph_main = html.Div(
+
+)
+
+# data table
+table_main = html.Div(
+
+)
 
 layout_main = html.Div([
     navbar,
     html.Hr(),
-    search
+    dbc.Row(
+        dbc.Col(search, width={'size':'auto','offset':1}, sm=10, md=10)
+    )
 ])
 
