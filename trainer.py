@@ -68,11 +68,6 @@ class PreProcessTweets:
             return None
     
     def _processTweet(self, tweet):
-        # tweet = tweet.lower() # convert text to lower-case
-        # tweet = re.sub('((www\.[^\s]+)|(https?://[^\s]+))', 'URL', tweet) # remove URLs
-        # tweet = re.sub('@[^\s]+', 'AT_USER', tweet) # remove usernames
-        # tweet = re.sub(r'#([^\s]+)', r'\1', tweet) # remove the # in #hashtag
-        # tweet = word_tokenize(tweet) # remove repeated characters (helloooooooo into hello)
         tweet = pp.total_preprocess(tweet)
         return [word for word in tweet if word not in self._stopwords]
 
@@ -114,8 +109,8 @@ class PreProcessTweets:
 
 if __name__ == '__main__':
     # get training tweets
-    neo = ts.MrAnderson()
-    neo.search('puppy')
+    # neo = ts.MrAnderson()
+    # neo.search('puppy')
     
     # create and train model
     # n = PreProcessTweets()
