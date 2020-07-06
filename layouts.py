@@ -1,3 +1,4 @@
+import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
@@ -32,26 +33,40 @@ navbar = dbc.Navbar(
 search = dbc.FormGroup(
     [
         dbc.Label("Sentiment Search"),
-        dbc.Input(placeholder="#iknowkungfu", type="text"),
+        dbc.Input(placeholder="#iknowkungfu", type="text", id="textinput_hashtag"),
         dbc.FormText("Search for a hashtag in the box above..."),
     ]
 )
 
 # sentiment graph
-graph_main = html.Div(
-
-)
+graph_main = html.Div(id="graph_main")
 
 # data table
-table_main = html.Div(
-
+table_main = dash_table.DataTable(
+    id='tweet_table'
 )
 
-layout_main = html.Div([
-    navbar,
-    html.Hr(),
-    dbc.Row(
-        dbc.Col(search, width={'size':'auto','offset':1}, sm=10, md=10)
-    )
-])
+# join layouts together
+layout_main =  html.Div(
+    [
+        # navbar with horizontal line
+        navbar,
+        html.Hr(),
+        # main body
+        dbc.Container(
+            [
+                dbc.Row(
+                    dbc.Col(search, width={'size':'auto','offset':1}, sm=10)
+                ),
+                dbc.Row(
+                    dbc.Col(graph_main, width={'size':'auto','offset':1}, sm=10)
+                ),
+                dbc.Row(
+                    dbc.Col(table_main, width={'size':'auto','offset':1}, sm=10)
+                ),
+            ],  # end main body
+        fluid=True
+        )
+    ]
+)
 
