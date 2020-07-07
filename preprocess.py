@@ -145,5 +145,3 @@ if __name__ == '__main__':
         ":) loving that he's in the new movie!"
     ]
     newTweets = total_preprocess(tweets)
-    for n in newTweets:
-        print(n)
