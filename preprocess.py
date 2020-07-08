@@ -1,12 +1,16 @@
+import twitter_scraper as ts
+
 import regex as re
+from nltk import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from string import punctuation 
+from nltk.stem.snowball import SnowballStemmer
+from string import punctuation
 
 
 # Program constants
-positive_word_library = list(set(open('words/positive.txt').read().split()))
-negative_word_library = list(set(open('words/negative.txt').read().split()))
+POSITIVE_WORD_LIBRARY = list(set(open('words/positive.txt').read().split()))
+NEGATIVE_WORD_LIBRARY = list(set(open('words/negative.txt').read().split()))
 STOPWORDS = set(stopwords.words('english') + list(punctuation) + ['AT_USER','URL'])
 
 
@@ -110,9 +114,9 @@ def emphasize_pos_and_neg_words(text):
     '''
     t = []
     for w in text.split():
-        if w in positive_word_library:
+        if w in POSITIVE_WORD_LIBRARY:
             t.append('<positive> ' + w)
-        elif w in negative_word_library:
+        elif w in NEGATIVE_WORD_LIBRARY:
             t.append('<negative> ' + w)
         else:
             t.append(w)
@@ -129,6 +133,36 @@ def separate(tweet):
     tweet = word_tokenize(tweet)
     return [word for word in tweet if word not in STOPWORDS]
 
+def tag_words(tweet, allow=['JJ']):
+    '''
+    purpose:        using the nltk pos_tag, tag each word with their likely association, e.g. noun,
+                    adjective, verb etc.
+    inputs:         string (tweet)
+                    allow       default ['JJ']
+                    define which types of words to permit, by default only permit adjectives
+                    further information can be found at https://www.nltk.org/book/ch05.html
+    outputs:        list of tuples [(word, association)]
+    '''
+    tagged = pos_tag(tweet)
+    newTweet=[]
+    for tag in tagged:
+        if tag[1] in allow:
+            newTweet.append(tag[0])
+    return newTweet
+
+def stem(tweet):
+    '''
+    purpose:
+    inputs:
+    outputs:
+    '''
+    stemmer = SnowballStemmer("english")
+    # for word in tweet:
+    #     newTweet = 
+    return stemmer.stem(tweet)
+
+
+
 
 def total_preprocess(tweet):
     newTweet = tweet
@@ -137,11 +171,22 @@ def total_preprocess(tweet):
     newTweet = emoji_translation(newTweet)
     newTweet = emphasize_pos_and_neg_words(newTweet)
     newTweet = separate(newTweet)
+    newTweet = tag_words(newTweet)
     return newTweet
 
-if __name__ == '__main__':
-    tweets = [
-        "Absolutely hating this new game :(!",
-        ":) loving that he's in the new movie!"
-    ]
-    newTweets = total_preprocess(tweets)
+# if __name__ == '__main__':
+#     # tweets = [
+#     #     r"Absolutely hating this new game :(!",
+#     #     r":) loving that he's in the new movie!"
+#     # ]
+#     neo = ts.MrAnderson()
+#     neo.search("puppy")
+#     tweets = neo.df['tweet'].tolist()
+#     # newTweets = total_preprocess(tweets)
+#     newTweets = []
+#     for tweet in tweets:
+#         tweet = total_preprocess(tweet)
+#         newTweets.append(tweet)
+#     for old, new in zip(tweets,newTweets):
+#         print(old,new)
+    
